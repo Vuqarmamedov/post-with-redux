@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from "./actions";
+import ReactLoading from 'react-loading';
+import './style.css'
 
 class PostList extends React.Component{
     componentDidMount(){
@@ -23,13 +25,22 @@ class PostList extends React.Component{
     }
 
     render() {
-        return <div className="ui relaxed divided list">{this.renderList()}</div>
+        if (this.props.status === "loading"){
+            return <div className="loading"> <ReactLoading type={'spinningBubbles'} color={'#ff0000'} height={667} width={375} /></div>
+        }
+        else if (this.props.status === "error"){
+            return <div>Something went wrong</div>
+        }
+        else{
+            return <div className="ui relaxed divided list">{this.renderList()}</div>
+        }
     }
 }
 
 const mapStateToProps = state => {
     return {
-        posts: state.posts
+        posts: state.posts,
+        status: state.status
     }
 };
 

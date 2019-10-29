@@ -8,6 +8,20 @@ const postsReducer = (posts = [], action) => {
     return posts
 };
 
+const statusReducer = (status = null, action) => {
+
+    if (action.type === "FETCH_LOADING") {
+        return action.payload
+    }
+
+    if (action.type === "FETCH_ERROR") {
+        return action.payload
+    }
+
+    return status
+};
+
 export default combineReducers({
-    posts: postsReducer
+    posts: postsReducer,
+    status: statusReducer
 })
